@@ -8,6 +8,7 @@ services:
       POSTGRES_PASSWORD: main
       POSTGRES_DB: main
     ports: [5432]
+
 ###> doctrine/doctrine-bundle ###
   database:
     image: postgres:${POSTGRES_VERSION:-13}-alpine
