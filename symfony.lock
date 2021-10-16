@@ -220,7 +220,7 @@
         "version": "v5.2.14"
     },
     "symfony/maker-bundle": {
-        "version": "1.34",
+        "version": "1.33",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
