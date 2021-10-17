@@ -12,52 +12,54 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 
 class CommentCrudController extends AbstractCrudController
 {
-    public static function getEntityFqcn(): string
-    {
-        return Comment::class;
-    }
+	public static function getEntityFqcn(): string
+	{
+		return Comment::class;
+	}
 
-    public function configureCrud(Crud $crud): Crud
-    {
-        return $crud
-            ->setEntityLabelInSingular('Комментарий к конференции')
-            ->setEntityLabelInPlural('Комментарий к конференции')
-            ->setSearchFields(['author', 'text', 'email'])
-            ->setDefaultSort(['createdAt' => 'DESC']);
+	public function configureCrud(Crud $crud): Crud
+	{
+		return $crud
+			->setEntityLabelInSingular('Комментарий к конференции')
+			->setEntityLabelInPlural('Комментарий к конференции')
+			->setSearchFields(['author', 'text', 'email'])
+			->setDefaultSort(['createdAt' => 'DESC']);
+	}
 
-    }
+	public function configureFilters(Filters $filters): Filters
+	{
+		return $filters
+			->add(EntityFilter::new('conference'));
+	}
 
-    public function configureFilters(Filters $filters): Filters
-    {
-        return $filters
-            ->add(EntityFilter::new('conference'));
-    }
+	public function configureFields(string $pageName): iterable
+	{
+		yield AssociationField::new('conference');
+		yield TextField::new('author');
+		yield EmailField::new('email');
+		yield TextareaField::new('text')
+			->hideOnIndex();
 
-    public function configureFields(string $pageName): iterable
-    {
-        yield AssociationField::new('conference');
-        yield TextField::new('author');
-        yield EmailField::new('email');
-        yield TextareaField::new('text')
-            ->hideOnIndex()
-        ;
-        yield TextField::new('photoFilename')
-            ->onlyOnIndex()
-        ;
+		yield ImageField::new('photoFilename')
+			->setBasePath('/uploads/photos')
+			->setLabel('Photo')
+			->onlyOnIndex()
+		;
 
-        $createdAt = DateTimeField::new('createdAt')->setFormTypeOptions([
-            'html5' => true,
-            'years' => range(date('Y'), date('Y') + 5),
-            'widget' => 'single_text',
-        ]);
-        if (Crud::PAGE_EDIT === $pageName) {
-            yield $createdAt->setFormTypeOption('disabled', true);
-        } else {
-            yield $createdAt;
-        }
-    }
+		$createdAt = DateTimeField::new('createdAt')->setFormTypeOptions([
+			'html5' => true,
+			'years' => range(date('Y'), date('Y') + 5),
+			'widget' => 'single_text',
+		]);
+		if (Crud::PAGE_EDIT === $pageName) {
+			yield $createdAt->setFormTypeOption('disabled', true);
+		} else {
+			yield $createdAt;
+		}
+	}
 
 }
