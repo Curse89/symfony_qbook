@@ -4,7 +4,7 @@
 
 {% block body %}
 
-    <h2>{{ conference }} Conference</h2>
+    <h2>{{ conference }} Конференция</h2>
 
     {% if comments|length > 0 %}
         <div>Здесь {{ comments|length }} комментариев.</div>
@@ -23,10 +23,10 @@
         {% endfor %}
 
         {% if previous >= 0 %}
-            <a href="{{ path('conference', { id: conference.id, offset: previous }) }}">Предыдущая</a>
+            <a href="{{ path('conference', { slug: conference.slug, offset: previous }) }}">Предыдущая</a>
         {% endif %}
         {% if next < comments|length %}
-            <a href="{{ path('conference', { id: conference.id, offset: next }) }}">Следующая</a>
+            <a href="{{ path('conference', { slug: conference.slug, offset: next }) }}">Следующая</a>
         {% endif %}
     {% else %}
         <div>Пока нет комментариев к этой конференции.</div>

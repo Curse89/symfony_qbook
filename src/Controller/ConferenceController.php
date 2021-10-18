@@ -30,14 +30,13 @@ class ConferenceController extends AbstractController
         ]));
     }
     /**
-     * @Route("/conference/{id}", name="conference")
+     * @Route("/conference/{slug}", name="conference")
      */
-    public function show(LoggerInterface $log, ConferenceRepository $conferenceRepository, Request $request, Conference $conference, CommentRepository $commentRepository): Response
+    public function show(ConferenceRepository $conferenceRepository, Request $request, Conference $conference, CommentRepository $commentRepository): Response
     {
-		$log->critical('PRIVET!');
 		$offset = max(0, $request->query->getInt('offset', 0));
 		$paginator = $commentRepository->getCommentPaginator($conference, $offset);
-		//dump($offset - CommentRepository::PAGINATOR_PER_PAGE);
+
         return new Response($this->twig->render('conference/show.html.twig', [
 			//'conferences' => $conferenceRepository->findAll(),
             'conference' => $conference,
