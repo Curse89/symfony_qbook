@@ -17,6 +17,7 @@ class AppFixtures extends Fixture
     {
         $this->encoderFactory = $encoderFactory;
     }
+
     public function load(ObjectManager $manager)
     {
         $amsterdam = new Conference();
