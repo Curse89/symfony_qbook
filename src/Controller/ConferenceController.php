@@ -27,6 +27,7 @@ class ConferenceController extends AbstractController
 		$this->twig = $twig;
         $this->entityManager = $entityManager;
 	}
+
     /**
      * @Route("/", name="homepage")
      */
@@ -36,6 +37,7 @@ class ConferenceController extends AbstractController
             //'conferences' => $conferenceRepository->findAll(),
         ]));
     }
+
     /**
      * @Route("/conference/{slug}", name="conference")
      */
