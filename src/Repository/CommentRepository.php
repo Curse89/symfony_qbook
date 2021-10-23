@@ -40,7 +40,7 @@ class CommentRepository extends ServiceEntityRepository
 		return $this->createQueryBuilder('c')
 			->andWhere('c.state = :state_rejected or c.state = :state_spam')
 			->andWhere('c.createdAt < :date')
-			->setParameter([
+			->setParameters([
 				'state_rejected' => 'rejected',
 				'state_spam' => 'spam',
 				'date' => new \DateTime(-self::DAYS_BEFORE_REJECTED_REMOVAL.' days'),
