@@ -79,6 +79,8 @@ class Comment
 
     /**
      * @ORM\Column(type="string", length=255, options={"default": "submitted"})
+     *
+     * @Groups ({"comment:list", "comment:item"})
      */
     private $state = 'submitted';
 
