@@ -48,7 +48,7 @@ class CommentMessageHandler implements MessageHandlerInterface
 		$this->mailer = $mailer;
 		$this->adminEmail = $adminEmail;
 		$this->imageOptimizer = $imageOptimizer;
-		$this->photoDir = photoDir;
+		$this->photoDir = $photoDir;
 		$this->logger = $logger;
 	}
 
