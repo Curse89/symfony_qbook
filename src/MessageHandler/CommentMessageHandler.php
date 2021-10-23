@@ -77,14 +77,8 @@ class CommentMessageHandler implements MessageHandlerInterface
 
 			$this->bus->dispatch($message);
 		} elseif ($this->workflow->can($comment, 'publish') || $this->workflow->can($comment, 'publish_ham')) {
-//			$this->mailer->send((new NotificationEmail())
-//				->subject('Новый комментарий отправлен')
-//				->htmlTemplate('emails/comment_notification.html.twig')
-//				->from($this->adminEmail)
-//				->to($this->adminEmail)
-//				->context(['comment' => $comment])
-//			);
-			$this->notifier->send(new CommentReviewNotification($comment), ...$this->notifier->getAdminRecipients());
+			$notification = new CommentReviewNotification($comment, $message->getReviewUrl());
+			$this->notifier->send($notification, ...$this->notifier->getAdminRecipients());
 		} elseif ($this->workflow->can($comment, 'optimize')) {
 			if ($comment->getPhotoFilename()) {
 				$this->imageOptimizer->resize($this->photoDir . '/' . $comment->getPhotoFilename());
