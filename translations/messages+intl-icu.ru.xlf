@@ -17,6 +17,14 @@
         <source>Conference Guestbook</source>
         <target>Гостевая книга</target>
       </trans-unit>
+      <trans-unit id="eOy4.6W" resname="nb_of_comments">
+         <source>nb_of_comments</source>
+         <target>{count, plural, =0 {Ноль комментариев.} =1 {1 комментарий.} other {# комментариев.}}</target>
+      </trans-unit>
+      <trans-unit id="eOy4.6B" resname="Text">
+         <source>Text</source>
+         <target>Текст</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
