@@ -33,8 +33,16 @@ class ConferenceController extends AbstractController
 		$this->bus = $bus;
 	}
 
+	/**
+	 * @Route("/")
+	 */
+	public function indexNoLocale(): Response
+	{
+		return $this->redirectToRoute('homepage', ['_locale' => 'ru']);
+	}
+
     /**
-     * @Route("/", name="homepage")
+     * @Route("/{_locale<%app.supported_locales%>}/", name="homepage")
      */
     public function index(ConferenceRepository $conferenceRepository): Response
     {
@@ -47,7 +55,7 @@ class ConferenceController extends AbstractController
     }
 
     /**
-     * @Route("/conference_header", name="conference_header")
+     * @Route("/{_locale<%app.supported_locales%>}/conference_header", name="conference_header")
      */
     public function conferenceHeader(ConferenceRepository $conferenceRepository): Response
     {
@@ -60,7 +68,7 @@ class ConferenceController extends AbstractController
     }
 
     /**
-     * @Route("/conference/{slug}", name="conference")
+     * @Route("/{_locale<%app.supported_locales%>}/conference/{slug}", name="conference")
      */
     public function show(ConferenceRepository $conferenceRepository, Request $request, Conference $conference, CommentRepository $commentRepository, string $photoDir, NotifierInterface $notifier): Response
     {
