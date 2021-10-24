@@ -11,17 +11,17 @@ class ConferenceControllerTest extends WebTestCase
     public function testIndex()
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/');
+        $crawler = $client->request('GET', '/ru/');
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h2', 'Give your feedback!');
+        $this->assertSelectorTextContains('h2', 'Оставьте отзыв!');
 
     }
 
     public function testConferencePage()
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/');
+        $crawler = $client->request('GET', '/ru/');
         echo $client->getResponse();
         $this->assertCount(2, $crawler->filter('h4'));
 
@@ -30,7 +30,7 @@ class ConferenceControllerTest extends WebTestCase
         $this->assertPageTitleContains('Amsterdam');
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h2', 'Amsterdam 2019');
-        $this->assertSelectorExists('div:contains("Здесь 1 комментариев")');
+        $this->assertSelectorExists('div:contains("Здесь 1 комментарий")');
 
         //echo $client->getResponse();
 
@@ -39,7 +39,7 @@ class ConferenceControllerTest extends WebTestCase
     public function testCommentSubmission()
     {
         $client = static::createClient();
-        $client->request('GET', '/conference/amsterdam-2019');
+        $client->request('GET', '/ru/conference/amsterdam-2019');
         $client->submitForm('Submit', [
             'comment_form[author]' => 'Sergey',
             'comment_form[text]' => 'Коммент из теста',
